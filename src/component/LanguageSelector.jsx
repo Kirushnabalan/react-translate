@@ -5,12 +5,13 @@ const LanguageSelector = () => {
   const [currentLanguage, setCurrentLanguage] = useState("en");
   const dropdownRef = useRef(null);
 
-const languages = [
-  { code: "en", name: "English", flag: "🇺🇸", translatedName: { en: "English", si: "ඉංග්‍රීසි", ta: "ஆங்கிலம்" } },
-  { code: "si", name: "සිංහල", flag: "🇱🇰", translatedName: { en: "Sinhala", si: "සිංහල", ta: "சிங்களம்" } },
-  { code: "ta", name: "தமிழ்", flag: "🇱🇰", translatedName: { en: "Tamil", si: "தமிழ்", ta: "தமிழ்" } },
-];
+  const languages = [
+    { code: "en", name: "English", flag: "🇺🇸", translatedName: { en: "English", si: "ඉංග්‍රීසි-English", ta: "ஆங்கிலம்-English" } },
+    { code: "si", name: "සිංහල", flag: "🇱🇰", translatedName: { en: "Sinhala", si: "සිංහල-Sinhala", ta: "சிங்களம்-Sinhala" } },
+    { code: "ta", name: "தமிழ்", flag: "🇱🇰", translatedName: { en: "Tamil", si: "தமிழ்-Tamil", ta: "தமிழ்-Tamil" } },
+  ];
 
+  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -21,10 +22,8 @@ const languages = [
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
+  // Load Google Translate script (without cookies)
   useEffect(() => {
-    const langCookie = document.cookie.match(/googtrans=([^;]+)/);
-    if (langCookie) setCurrentLanguage(langCookie[1].split('/').pop());
-
     if (!window.google || !window.google.translate) {
       const script = document.createElement("script");
       script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
@@ -62,13 +61,18 @@ const languages = [
     return () => delete window.googleTranslateElementInit;
   }, []);
 
+  // Update current language state only (no cookies, no reload)
   const changeLanguage = (languageCode) => {
     setCurrentLanguage(languageCode);
-    document.cookie = `googtrans=/en/${languageCode}; path=/; domain=${window.location.hostname}`;
-    window.location.reload();
+    if (window.google?.translate) {
+      const select = document.querySelector(".goog-te-combo");
+      if (select) select.value = languageCode;
+      select?.dispatchEvent(new Event("change"));
+    }
   };
 
-  const getCurrentLanguage = () => languages.find((lang) => lang.code === currentLanguage) || languages[0];
+  const getCurrentLanguage = () =>
+    languages.find((lang) => lang.code === currentLanguage) || languages[0];
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
