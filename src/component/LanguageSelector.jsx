@@ -6,9 +6,9 @@ const LanguageSelector = () => {
   const dropdownRef = useRef(null);
 
   const languages = [
-    { code: "en", name: "English" },
-    { code: "si", name: "සිංහල" },
-    { code: "ta", name: "தமிழ்" },
+    { code: "en", name: "English", displayName: "English-English" },
+    { code: "si", name: "සිංහල", displayName: "සිංහල-Sinhala" },
+    { code: "ta", name: "தமிழ்", displayName: "தமிழ்-Tamil" },
   ];
 
   // Close dropdown on outside click
