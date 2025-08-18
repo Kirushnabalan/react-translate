@@ -6,9 +6,9 @@ const LanguageSelector = () => {
   const dropdownRef = useRef(null);
 
   const languages = [
-    { code: "en", name: "English", flag: "🇺🇸", translatedName: { en: "English", si: "ඉංග්‍රීසි-English", ta: "ஆங்கிலம்-English" } },
-    { code: "si", name: "සිංහල", flag: "🇱🇰", translatedName: { en: "Sinhala", si: "සිංහල-Sinhala", ta: "சிங்களம்-Sinhala" } },
-    { code: "ta", name: "தமிழ்", flag: "🇱🇰", translatedName: { en: "Tamil", si: "தமிழ்-Tamil", ta: "தமிழ்-Tamil" } },
+    { code: "en", name: "English" },
+    { code: "si", name: "සිංහල" },
+    { code: "ta", name: "தமிழ்" },
   ];
 
   // Close dropdown on outside click
@@ -18,15 +18,16 @@ const LanguageSelector = () => {
         setIsOpen(false);
       }
     };
-    if (isOpen) document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen]);
+  }, []);
 
-  // Load Google Translate script (without cookies)
+  // Load Google Translate script
   useEffect(() => {
     if (!window.google || !window.google.translate) {
       const script = document.createElement("script");
-      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.src =
+        "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
       script.async = true;
       document.head.appendChild(script);
     }
@@ -51,7 +52,7 @@ const LanguageSelector = () => {
           {
             pageLanguage: "en",
             includedLanguages: "en,si,ta",
-            layout: window.google.translate.TranslateElement.InlineLayout.HIDE
+            layout: window.google.translate.TranslateElement.InlineLayout.HIDE,
           },
           "google_translate_element"
         );
@@ -61,13 +62,14 @@ const LanguageSelector = () => {
     return () => delete window.googleTranslateElementInit;
   }, []);
 
-  // Update current language state only (no cookies, no reload)
+  // Change language without reload
   const changeLanguage = (languageCode) => {
     setCurrentLanguage(languageCode);
-    if (window.google?.translate) {
-      const select = document.querySelector(".goog-te-combo");
-      if (select) select.value = languageCode;
-      select?.dispatchEvent(new Event("change"));
+
+    const select = document.querySelector(".goog-te-combo");
+    if (select) {
+      select.value = languageCode;
+      select.dispatchEvent(new Event("change"));
     }
   };
 
@@ -76,29 +78,43 @@ const LanguageSelector = () => {
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
+      {/* Hidden Google Translate Element */}
       <div id="google_translate_element" style={{ display: "none" }}></div>
 
+      {/* Language Selector Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="inline-flex items-center justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
       >
-        <span className="mr-2">{getCurrentLanguage().flag}</span>
         <span className="mr-2">{getCurrentLanguage().name}</span>
-        <svg className="ml-2 -mr-1 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/>
+        <svg
+          className="ml-2 -mr-1 h-5 w-5"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clipRule="evenodd"
+          />
         </svg>
       </button>
 
+      {/* Dropdown Menu */}
       {isOpen && (
-        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+        <div className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
           <div className="py-1">
             {languages.map((language) => (
               <button
                 key={language.code}
                 onClick={() => changeLanguage(language.code)}
-                className={`${currentLanguage === language.code ? "bg-gray-100 text-gray-900" : "text-gray-700"} group flex items-center px-4 py-2 text-sm w-full text-left hover:bg-gray-100`}
+                className={`${
+                  currentLanguage === language.code
+                    ? "bg-gray-100 text-gray-900"
+                    : "text-gray-700"
+                } group flex items-center px-4 py-2 text-sm w-full text-left hover:bg-gray-100`}
               >
-                <span className="mr-3">{language.flag}</span>
                 <span>{language.name}</span>
               </button>
             ))}
