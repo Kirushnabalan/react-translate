@@ -7,7 +7,9 @@ const App = () => {
       {/* Header */}
       <header className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold" translate="no">React Language Selector Demo</h1>
+        <div translate="no">
         <LanguageSelector />
+        </div>
       </header>
  
       {/* Main Content */}
