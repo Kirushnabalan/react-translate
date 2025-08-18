@@ -27,8 +27,8 @@ const App = () => {
         <section className="p-6 bg-white rounded shadow">
           <h2 className="text-2xl font-semibold mb-2">About This Component</h2>
           <p>
-            The component shows a language selector button with flags, opens a dropdown
-            menu with supported languages, persists the selected language using cookies,
+            The component shows a language selector button, opens a dropdown
+            menu with supported languages,
             and loads Google Translate in the background. The default Google Translate
             UI is hidden to keep the interface clean.
           </p>
@@ -38,9 +38,8 @@ const App = () => {
         <section className="p-6 bg-white rounded shadow">
           <h2 className="text-2xl font-semibold mb-2">Features</h2>
           <ul className="list-disc list-inside">
-            <li>Language selector button with flags</li>
+            <li>Language selector button</li>
             <li>Dropdown menu with supported languages</li>
-            <li>Persists selected language using cookies</li>
             <li>Loads Google Translate in the background</li>
             <li>Clean UI without Google’s default widget</li>
           </ul>
