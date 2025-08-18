@@ -1,12 +1,28 @@
-# React + Vite
+# 🌍 React Language Selector with Google Translate
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a **custom language selector built in React** using Google Translate.  
+It allows users to switch seamlessly between **English, Sinhala, and Tamil**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
+👉 [react-translate-jet.vercel.app](https://react-translate-jet.vercel.app/)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📖 Blog Post
+Full explanation of how this was built:  
+👉 [How I Built a Custom Language Selector in React](https://medium.com/@kirushnabalan1803/how-i-built-a-custom-language-selector-in-react-with-google-translate-a9d4908981a4)
+
+---
+
+## 📂 Project Structure
+- `src/components/LanguageSelector.jsx` → Main **language selector** component.  
+- `src/App.jsx` → Example usage of the language selector.  
+---
+
+## 🛠️ Installation & Setup
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/Kirushnabalan/react-translate.git
+   cd react-translate
