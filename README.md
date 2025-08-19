@@ -18,10 +18,10 @@ Full explanation of how this was built:
 
 ## 📂 Project Structure
 src/
-├── App.jsx # Main demo page
+├── App.jsx        # Main demo page
 └── components/
-└── LanguageSelector.jsx # Custom language selector
----
+    └── LanguageSelector.jsx  # Custom language selector
+
 
 ## 🛠️ Installation & Setup
 1. Clone the repo:
