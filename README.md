@@ -17,11 +17,7 @@ Full explanation of how this was built:
 ---
 
 ## 📂 Project Structure
-src/
-├── App.jsx        # Main demo page
-└── components/
-    └── LanguageSelector.jsx  # Custom language selector
-
+<img width="507" height="136" alt="image" src="https://github.com/user-attachments/assets/476dbbb2-3349-4086-96cd-0138f62f296a" />
 
 ## 🛠️ Installation & Setup
 1. Clone the repo:
